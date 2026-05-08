@@ -1,0 +1,10 @@
+Fiction,The Great Gatsby,F. Scott Fitzgerald,Printed,180
+Science,Quantum Physics 101,Albert Einstein,EBook,4.5
+Mystery,The Hound of the Baskervilles,Arthur Conan Doyle,Printed,256
+Fiction,To Kill a Mockingbird,Harper Lee,Printed,336
+NonFiction,Sapiens,Yuval Noah Harari,Printed,443
+Biography,Steve Jobs,Walter Isaacson,EBook,12.3
+Science,A Brief History of Time,Stephen Hawking,Printed,212
+Mystery,Gone Girl,Gillian Flynn,EBook,8.1
+Fiction,1984,George Orwell,Printed,328
+NonFiction,Educated,Tara Westover,Printed,352

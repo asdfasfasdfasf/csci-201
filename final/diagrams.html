@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Library Management System - Diagrams</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<style>
+  body { font-family: Arial, sans-serif; background: #fff; padding: 40px; }
+  h1 { text-align: center; }
+  h2 { margin-top: 60px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+  .mermaid { display: flex; justify-content: center; margin: 20px 0; }
+</style>
+</head>
+<body>
+
+<h1>Library Management System</h1>
+
+<h2>1. Flowchart</h2>
+<div class="mermaid">
+flowchart TD
+    A([Start]) --> B[Load books.txt and patrons.txt]
+    B --> C{Files loaded?}
+    C -- No --> D[Print error, start with empty library]
+    C -- Yes --> E[Print success message]
+    D --> F[Display Main Menu]
+    E --> F
+    F --> G{User Choice}
+    G -- 1 --> H[Display All Books]
+    G -- 2 --> I[Display All Patrons]
+    G -- 3 --> J[Enter Patron ID and Book Title]
+    J --> K{Book available?}
+    K -- Yes --> L[Check out book, log transaction]
+    K -- No --> M[Throw exception, print error]
+    G -- 4 --> N[Enter Patron ID and Book Title]
+    N --> O{Book checked out?}
+    O -- Yes --> P[Return book, log transaction]
+    O -- No --> Q[Throw exception, print error]
+    G -- 5 --> R[Enter book details]
+    R --> S[Add book to library]
+    G -- 6 --> T[Enter patron details]
+    T --> U[Add patron to library]
+    G -- 7 --> V[Enter author name]
+    V --> W[Search and display matching books]
+    G -- 8 --> X[Select genre]
+    X --> Y[Search and display matching books]
+    G -- 9 --> Z[Display transaction log]
+    G -- 0 --> AA[Save books, patrons, transactions to files]
+    AA --> AB([Exit])
+    H --> F
+    I --> F
+    L --> F
+    M --> F
+    P --> F
+    Q --> F
+    S --> F
+    U --> F
+    W --> F
+    Y --> F
+    Z --> F
+</div>
+
+<h2>2. UML Class Diagram</h2>
+<div class="mermaid">
+classDiagram
+    class Genre {
+        &lt;&lt;enumeration&gt;&gt;
+        Fiction
+        NonFiction
+        Mystery
+        Science
+        Biography
+    }
+
+    class BookStatus {
+        &lt;&lt;enumeration&gt;&gt;
+        Available
+        CheckedOut
+    }
+
+    class Book {
+        &lt;&lt;abstract&gt;&gt;
+        #string title
+        #string author
+        #Genre genre
+        #BookStatus status
+        +Book(string t, string a, Genre g)
+        +displayInfo() void*
+        +getType() string*
+        +getExtraField() string*
+        +setStatus(BookStatus s) void
+        +getStatus() BookStatus
+        +getTitle() string
+        +getAuthor() string
+        +getGenre() Genre
+        +operator==(Book other) bool
+        +operator&lt;&lt;(ostream os, Book b) ostream
+    }
+
+    class EBook {
+        -double fileSizeMB
+        +EBook(string t, string a, Genre g, double size)
+        +displayInfo() void
+        +getType() string
+        +getExtraField() string
+        +getFileSize() double
+    }
+
+    class PrintedBook {
+        -int pageCount
+        +PrintedBook(string t, string a, Genre g, int pages)
+        +displayInfo() void
+        +getType() string
+        +getExtraField() string
+        +getPageCount() int
+    }
+
+    class Patron {
+        -string name
+        -int id
+        -vector~Book*~ borrowedBooks
+        +Patron(string n, int i)
+        +borrowBook(Book* b) void
+        +returnBook(Book* b) void
+        +displayPatron() void
+        +getName() string
+        +getId() int
+        +operator==(Patron other) bool
+        +operator&lt;&lt;(ostream os, Patron p) ostream
+    }
+
+    class Transaction {
+        -int patronId
+        -string bookTitle
+        -string date
+        -string type
+        +Transaction(int pid, string bt, string transType)
+        +displayTransaction() void
+        +toFileString() string
+    }
+
+    class Library {
+        -vector~Book*~ books
+        -vector~Patron~ patrons
+        -vector~Transaction~ transactions
+        +loadData() void
+        +saveData() void
+        +addBook(Book* b) void
+        +addPatron(Patron p) void
+        +checkoutBook(int patronId, string title) void
+        +returnBook(int patronId, string title) void
+        +displayBooks() void
+        +displayPatrons() void
+        +displayTransactions() void
+        +searchByAuthor(string author) void
+        +searchByGenre(Genre genre) void
+        +findBook(string title) Book*
+        +findPatron(int id) Patron*
+    }
+
+    Book <|-- EBook : inherits
+    Book <|-- PrintedBook : inherits
+    Book --> Genre
+    Book --> BookStatus
+    Library "1" --> "*" Book : manages
+    Library "1" --> "*" Patron : manages
+    Library "1" --> "*" Transaction : logs
+    Patron --> "*" Book : borrows
+</div>
+
+<h2>3. Use Case Diagram</h2>
+<div class="mermaid">
+flowchart LR
+    User((User))
+
+    subgraph Library Management System
+        UC1[View All Books]
+        UC2[View All Patrons]
+        UC3[Check Out a Book]
+        UC4[Return a Book]
+        UC5[Add a New Book]
+        UC6[Add a New Patron]
+        UC7[Search by Author]
+        UC8[Search by Genre]
+        UC9[View Transaction Log]
+        UC10[Save and Exit]
+        UC11[Load Data from Files]
+        UC12[Save Data to Files]
+    end
+
+    User --- UC1
+    User --- UC2
+    User --- UC3
+    User --- UC4
+    User --- UC5
+    User --- UC6
+    User --- UC7
+    User --- UC8
+    User --- UC9
+    User --- UC10
+
+    UC10 -.->|includes| UC12
+    UC3 -.->|includes| UC11
+    UC4 -.->|includes| UC11
+</div>
+
+</body>
+</html>
