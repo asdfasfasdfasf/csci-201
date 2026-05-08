@@ -3,6 +3,7 @@
 
 #include "Book.h"
 
+// Derived class representing a digital book with a file size
 class EBook : public Book {
     double fileSizeMB;
 

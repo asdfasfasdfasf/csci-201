@@ -1,6 +1,7 @@
 #include "Transaction.h"
 #include <ctime>
 
+// Captures current date/time automatically on creation
 Transaction::Transaction(int pid, std::string bt, std::string transType)
     : patronId(pid), bookTitle(std::move(bt)), type(std::move(transType)) {
     time_t now = time(nullptr);
@@ -13,6 +14,7 @@ void Transaction::displayTransaction() const {
     std::cout << "[" << date << "] " << type << " - Patron #" << patronId << " | Book: \"" << bookTitle << "\"" << std::endl;
 }
 
+// Formats transaction as a CSV line for file output
 std::string Transaction::toFileString() const {
     return date + "," + std::to_string(patronId) + "," + bookTitle + "," + type;
 }

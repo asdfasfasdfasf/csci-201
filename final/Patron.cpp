@@ -6,10 +6,12 @@
 Patron::Patron(std::string n, int i)
     : name(std::move(n)), id(i) {}
 
+// Adds a book pointer to this patron's borrowed list
 void Patron::borrowBook(Book* b) {
     borrowedBooks.push_back(b);
 }
 
+// Removes a book from borrowed list; throws if not found
 void Patron::returnBook(Book* b) {
     auto it = std::find(borrowedBooks.begin(), borrowedBooks.end(), b);
     if (it == borrowedBooks.end()) {
@@ -29,6 +31,7 @@ std::string Patron::getName() const { return name; }
 int Patron::getId() const { return id; }
 const std::vector<Book*>& Patron::getBorrowedBooks() const { return borrowedBooks; }
 
+// Two patrons are equal if they share the same ID
 bool Patron::operator==(const Patron& other) const {
     return id == other.id;
 }

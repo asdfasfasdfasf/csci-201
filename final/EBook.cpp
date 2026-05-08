@@ -4,6 +4,7 @@
 EBook::EBook(std::string t, std::string a, Genre g, double size)
     : Book(std::move(t), std::move(a), g), fileSizeMB(size) {}
 
+// Displays base book info plus file size in MB
 void EBook::displayInfo() const {
     Book::displayInfo();
     std::cout << " | File Size: " << fileSizeMB << " MB" << std::endl;

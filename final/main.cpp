@@ -4,6 +4,7 @@
 #include <iostream>
 #include <limits>
 
+// Prints the main menu options to the console
 void displayMenu() {
     std::cout << "\n========================================" << std::endl;
     std::cout << "   Library Management System" << std::endl;
@@ -22,6 +23,7 @@ void displayMenu() {
     std::cout << "Enter your choice: ";
 }
 
+// Reads an integer from stdin; throws on invalid input
 int getIntInput() {
     int val;
     std::cin >> val;
@@ -34,6 +36,7 @@ int getIntInput() {
     return val;
 }
 
+// Displays genre options and returns the user's selection
 Genre selectGenre() {
     std::cout << "  Select Genre:" << std::endl;
     std::cout << "    1. Fiction" << std::endl;
@@ -54,9 +57,11 @@ Genre selectGenre() {
     }
 }
 
+// Entry point: loads data, runs the menu loop, saves on exit
 int main() {
     Library library;
 
+    // Attempt to load data files; continue with empty library on failure
     try {
         library.loadData();
     } catch (const std::exception& e) {
@@ -64,6 +69,7 @@ int main() {
         std::cerr << "Starting with empty library." << std::endl;
     }
 
+    // Main menu loop
     bool running = true;
     while (running) {
         displayMenu();

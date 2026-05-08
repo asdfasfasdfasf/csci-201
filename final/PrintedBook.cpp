@@ -3,6 +3,7 @@
 PrintedBook::PrintedBook(std::string t, std::string a, Genre g, int pages)
     : Book(std::move(t), std::move(a), g), pageCount(pages) {}
 
+// Displays base book info plus page count
 void PrintedBook::displayInfo() const {
     Book::displayInfo();
     std::cout << " | Pages: " << pageCount << std::endl;

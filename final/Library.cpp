@@ -5,12 +5,14 @@
 #include <algorithm>
 #include <stdexcept>
 
+// Frees dynamically allocated Book objects
 Library::~Library() {
     for (auto b : books) {
         delete b;
     }
 }
 
+// Parses CSV file and creates EBook or PrintedBook objects
 void Library::loadBooks(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {
@@ -44,6 +46,7 @@ void Library::loadBooks(const std::string& filename) {
     }
 }
 
+// Parses CSV file and creates Patron objects
 void Library::loadPatrons(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {
@@ -65,6 +68,7 @@ void Library::loadPatrons(const std::string& filename) {
     }
 }
 
+// Writes all books back to CSV format
 void Library::saveBooks(const std::string& filename) const {
     std::ofstream file(filename);
     if (!file) {
@@ -91,6 +95,7 @@ void Library::savePatrons(const std::string& filename) const {
     }
 }
 
+// Appends transactions to log file
 void Library::saveTransactions(const std::string& filename) const {
     std::ofstream file(filename, std::ios::app);
     if (!file) {
@@ -122,6 +127,7 @@ void Library::addBook(Book* b) {
     std::cout << "Book added: " << *b << std::endl;
 }
 
+// Adds patron after checking for duplicate IDs
 void Library::addPatron(const Patron& p) {
     for (const auto& existing : patrons) {
         if (existing == p) {
@@ -132,6 +138,7 @@ void Library::addPatron(const Patron& p) {
     std::cout << "Patron added: " << p << std::endl;
 }
 
+// Validates patron/book, updates status, and logs the transaction
 void Library::checkoutBook(int patronId, const std::string& title) {
     Patron* patron = findPatron(patronId);
     if (!patron) {
@@ -154,6 +161,7 @@ void Library::checkoutBook(int patronId, const std::string& title) {
     std::cout << "Book \"" << title << "\" checked out to Patron #" << patronId << "." << std::endl;
 }
 
+// Validates patron/book, marks available, and logs the transaction
 void Library::returnBook(int patronId, const std::string& title) {
     Patron* patron = findPatron(patronId);
     if (!patron) {
@@ -214,6 +222,7 @@ void Library::displayTransactions() const {
     std::cout << std::endl;
 }
 
+// Partial match search on author name
 void Library::searchByAuthor(const std::string& author) const {
     std::cout << "\n===== Search Results: Author \"" << author << "\" =====" << std::endl;
     bool found = false;
@@ -228,6 +237,7 @@ void Library::searchByAuthor(const std::string& author) const {
     }
 }
 
+// Filters books by exact genre match
 void Library::searchByGenre(Genre genre) const {
     std::cout << "\n===== Search Results: Genre \"" << genreToString(genre) << "\" =====" << std::endl;
     bool found = false;

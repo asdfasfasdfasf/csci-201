@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 
+// Records a checkout or return event with an auto-generated timestamp
 class Transaction {
     int patronId;
     std::string bookTitle;

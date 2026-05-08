@@ -9,9 +9,11 @@
 #include <fstream>
 #include <sstream>
 
+// Template declaration for generic file saving
 template <typename T>
 void saveToFile(const std::string& filename, const std::vector<T>& items);
 
+// Central class that manages all books, patrons, and transactions
 class Library {
     std::vector<Book*> books;
     std::vector<Patron> patrons;

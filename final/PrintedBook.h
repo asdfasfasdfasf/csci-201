@@ -3,6 +3,7 @@
 
 #include "Book.h"
 
+// Derived class representing a physical book with a page count
 class PrintedBook : public Book {
     int pageCount;
 

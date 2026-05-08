@@ -4,13 +4,16 @@
 #include <string>
 #include <iostream>
 
+// Enumerations for book classification and availability
 enum class Genre { Fiction, NonFiction, Mystery, Science, Biography };
 enum class BookStatus { Available, CheckedOut };
 
+// Utility functions to convert enums to/from strings for file I/O
 std::string genreToString(Genre g);
 Genre stringToGenre(const std::string& s);
 std::string statusToString(BookStatus s);
 
+// Abstract base class representing a book in the library
 class Book {
 protected:
     std::string title;
@@ -23,8 +26,8 @@ public:
     virtual ~Book() = default;
 
     virtual void displayInfo() const;
-    virtual std::string getType() const = 0;
-    virtual std::string getExtraField() const = 0;
+    virtual std::string getType() const = 0;       // "EBook" or "Printed"
+    virtual std::string getExtraField() const = 0;  // file size or page count as string
 
     void setStatus(BookStatus s);
     BookStatus getStatus() const;
@@ -32,8 +35,8 @@ public:
     std::string getAuthor() const;
     Genre getGenre() const;
 
-    bool operator==(const Book& other) const;
-    friend std::ostream& operator<<(std::ostream& os, const Book& b);
+    bool operator==(const Book& other) const;                        // compares by title and author
+    friend std::ostream& operator<<(std::ostream& os, const Book& b); // formatted output
 };
 
 #endif

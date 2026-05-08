@@ -1,6 +1,7 @@
 #include "Book.h"
 #include <stdexcept>
 
+// Convert Genre enum to string for display and file output
 std::string genreToString(Genre g) {
     switch (g) {
         case Genre::Fiction:    return "Fiction";
@@ -12,6 +13,7 @@ std::string genreToString(Genre g) {
     return "Unknown";
 }
 
+// Convert string from file input back to Genre enum
 Genre stringToGenre(const std::string& s) {
     if (s == "Fiction")    return Genre::Fiction;
     if (s == "NonFiction") return Genre::NonFiction;
@@ -25,9 +27,11 @@ std::string statusToString(BookStatus s) {
     return (s == BookStatus::Available) ? "Available" : "Checked Out";
 }
 
+// Constructor initializes book as Available by default
 Book::Book(std::string t, std::string a, Genre g)
     : title(std::move(t)), author(std::move(a)), genre(g), status(BookStatus::Available) {}
 
+// Prints base book info; derived classes append their extra fields
 void Book::displayInfo() const {
     std::cout << "Title: " << title
               << " | Author: " << author
@@ -41,6 +45,7 @@ std::string Book::getTitle() const { return title; }
 std::string Book::getAuthor() const { return author; }
 Genre Book::getGenre() const { return genre; }
 
+// Two books are equal if they share the same title and author
 bool Book::operator==(const Book& other) const {
     return title == other.title && author == other.author;
 }

@@ -7,6 +7,7 @@
 
 class Book;
 
+// Represents a library patron who can borrow and return books
 class Patron {
     std::string name;
     int id;
